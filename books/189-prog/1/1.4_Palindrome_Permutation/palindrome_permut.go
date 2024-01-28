@@ -20,10 +20,7 @@ func check(str string) bool {
 			odd_repeats++
 		}
 	}
-	if odd_repeats <= 1 {
-		return true
-	}
-	return false
+	return odd_repeats <= 1
 }
 
 func main() {
