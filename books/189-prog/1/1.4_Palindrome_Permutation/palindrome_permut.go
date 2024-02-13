@@ -23,6 +23,30 @@ func check(str string) bool {
 	return odd_repeats <= 1
 }
 
+func checkExactlyOneBitSet(bitVector int) bool {
+	return (bitVector & (bitVector - 1)) == 0;
+}
+
+func createBitVector(str string) int {
+	bitVector := 0;
+	for _, c := range str {
+		index := c - rune('a');
+		if index < 0 {
+			fmt.Println("only a-z");
+			os.Exit(-1);
+		}
+		mask := 1 << index;
+		bitVector = bitVector ^ mask;
+	}
+	return bitVector;
+}
+
+// assuming str only contains a-z
+func checkOptimized(str string) bool {
+	var bitVector int = createBitVector(str);
+	return bitVector == 0 || checkExactlyOneBitSet(bitVector);
+}
+
 func main() {
 	str := string("")
 	fmt.Println("Enter the string:")
@@ -30,8 +54,13 @@ func main() {
 	in := bufio.NewReader(os.Stdin)
 
 	str, _ = in.ReadString('\n')
+	if len(str) <= 1 {
+		fmt.Println("invalid len for string");
+		return;
+	}
+	str = str[:len(str) - 1];	// remove \n
 
-	if check(str) {
+	if checkOptimized(str) {
 		fmt.Println("true")
 	} else {
 		fmt.Println("false")
