@@ -1,0 +1,9 @@
+first line
+seconde line
+first line
+third line
+first line
+second line
+dup
+dup
+something
